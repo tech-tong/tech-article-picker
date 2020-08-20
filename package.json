@@ -7,15 +7,23 @@
     "prebuild": "rimraf dist",
     "build": "tsc",
     "prepick": "npm run build",
-    "pick": "npx ts-node src/index.ts"
+    "pick": "npx ts-node src/index.ts",
+    "prettier": "prettier --write src"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@types/jsdom": "16.2.3",
     "@types/lowdb": "1.0.9",
     "@types/luxon": "1.24.3",
+    "eslint": "7.7.0",
+    "eslint-config-google": "0.14.0",
+    "eslint-config-prettier": "6.11.0",
+    "eslint-plugin-prettier": "3.1.4",
+    "husky": "4.2.5",
+    "lint-staged": "10.2.11",
+    "prettier": "2.0.5",
     "rimraf": "3.0.2",
     "typescript": "3.9.7"
   },
@@ -24,5 +32,13 @@
     "jsdom": "16.4.0",
     "lowdb": "1.0.0",
     "luxon": "1.24.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettier && lint-staged && npm run build"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix"
   }
 }
