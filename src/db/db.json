@@ -1,0 +1,28 @@
+{
+  "suggestions": [
+    {
+      "tag": "Concurrency",
+      "url": "http://joeduffyblog.com/2016/11/30/15-years-of-concurrency/",
+      "id": 1,
+      "suggestedAt": [
+        "2020-08-20T19:05:24.665Z"
+      ]
+    },
+    {
+      "tag": "Leadership",
+      "url": "http://www.pointer.io/archives/3bb97f03e3",
+      "id": 2,
+      "suggestedAt": [
+        "2020-08-20T19:05:53.377Z"
+      ]
+    },
+    {
+      "tag": "Machine Learning",
+      "url": "http://www.pointer.io/archives/04ae86f91a",
+      "id": 3,
+      "suggestedAt": [
+        "2020-08-20T19:09:17.475Z"
+      ]
+    }
+  ]
+}
