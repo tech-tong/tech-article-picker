@@ -1,15 +1,25 @@
 import Path from 'path';
 import Fs from 'fs';
-import { Suggestion } from './models';
+import { Suggestion, ArticleSuggestion } from './models';
 
-const filepath = Path.resolve(Path.join(__dirname, 'db.json'))
+const filepath = Path.resolve(Path.join('..', 'db.json'))
 
 interface Db {
   [key: string]: any[];
   suggestions: Suggestion[]
 }
 
-const _getDbFile = (): Db => JSON.parse(Fs.readFileSync(filepath).toString()) as Db
+const _getDbFile = (): Db => {
+  if (Fs.existsSync(filepath)) {
+    return JSON.parse(Fs.readFileSync(filepath).toString()) as Db
+  } else {
+    Fs.writeFileSync(filepath, JSON.stringify({}))
+    return {
+      suggestions: []
+    }
+  }
+}
+
 const _saveDbFile = (objs: any, db: any) => {
   const newDb = { ...db }
   Object.keys(objs).forEach(key => {
@@ -26,7 +36,7 @@ function getSuggestions(db = _getDbFile()): Suggestion[] {
   })
 }
 
-function findSuggestion(opts: Omit<Suggestion, 'suggestedAt' | 'id'>, db: Db = _getDbFile()) {
+function findSuggestion(opts: ArticleSuggestion, db: Db = _getDbFile()) {
   if (!db.suggestions) return null
   const suggestion = db.suggestions.find(s => s.tag === opts.tag && s.url === opts.url)
   if (suggestion) {
@@ -35,7 +45,7 @@ function findSuggestion(opts: Omit<Suggestion, 'suggestedAt' | 'id'>, db: Db = _
   return suggestion
 }
 
-function saveSuggestion(opts: Omit<Suggestion, 'suggestedAt' | 'id'>, db = _getDbFile()) {
+function saveSuggestion(opts: ArticleSuggestion, db = _getDbFile()) {
   const existing = findSuggestion(opts, db)
 
   if (existing) {
